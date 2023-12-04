@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:r5/core/errors/failure.dart';
-import 'package:r5/core/model/coin_model.dart';
 import 'package:r5/core/errors/exceptions.dart';
+import 'package:r5/core/model/task_model.dart';
 import 'package:r5/features/home/data/data_sources/home_data_source.dart';
 import 'package:r5/features/home/domain/repositories/home_auth_repository.dart';
 
@@ -12,12 +12,12 @@ class HomeRepositoryImpl implements HomeRepository {
 
 
   @override
-  Future<Either<Failure, List<CoinModel>>> getListCoin({
+  Future<Either<Failure, List<TaskModel>>> getListTask({
     required int limit,
     required int skip,
   }) async {
     try {
-      final result = await homeDataSource.getListCoin(
+      final result = await homeDataSource.getListTask(
         limit: limit,
         skip: skip,
       );

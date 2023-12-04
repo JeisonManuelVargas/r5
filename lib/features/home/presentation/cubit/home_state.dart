@@ -6,9 +6,9 @@ class HomeState {
   final String email;
   final bool isLoading;
   final GlobalKey listCoinKey;
-  final List<CoinModel> coinList;
+  final List<TaskModel> taskList;
   final PageController pageController;
-  final List<CoinModel> coinListFavorite;
+  final List<TaskModel> taskListFavorite;
   final ScrollController scrollController;
   final ScrollController scrollControllerFavorite;
 
@@ -16,12 +16,12 @@ class HomeState {
     required this.skip,
     required this.limit,
     required this.email,
-    required this.coinList,
+    required this.taskList,
     required this.isLoading,
     required this.listCoinKey,
     required this.pageController,
     required this.scrollController,
-    required this.coinListFavorite,
+    required this.taskListFavorite,
     required this.scrollControllerFavorite,
   });
 
@@ -29,9 +29,9 @@ class HomeState {
         skip: 0,
         email: "",
         limit: 10,
-        coinList: [],
+        taskList: [],
         isLoading: false,
-        coinListFavorite: [],
+        taskListFavorite: [],
         listCoinKey: GlobalKey(),
         pageController: PageController(),
         scrollController: ScrollController(),
@@ -43,8 +43,8 @@ class HomeState {
     int? limit,
     String? email,
     bool? isLoading,
-    List<CoinModel>? coinList,
-    List<CoinModel>? coinListFavorite,
+    List<TaskModel>? taskList,
+    List<TaskModel>? taskListFavorite,
   }) =>
       HomeState(
         skip: skip ?? this.skip,
@@ -53,9 +53,9 @@ class HomeState {
         email: email ?? this.email,
         pageController: pageController,
         scrollController: scrollController,
-        coinList: coinList ?? this.coinList,
+        taskList: taskList ?? this.taskList,
         isLoading: isLoading ?? this.isLoading,
         scrollControllerFavorite: scrollControllerFavorite,
-        coinListFavorite: coinListFavorite ?? this.coinListFavorite,
+        taskListFavorite: taskListFavorite ?? this.taskListFavorite,
       );
 }

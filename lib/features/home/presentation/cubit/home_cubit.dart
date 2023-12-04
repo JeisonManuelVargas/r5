@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:r5/core/model/coin_model.dart';
+import 'package:r5/core/model/task_model.dart';
 import 'package:r5/core/util/custom_snack_bar.dart';
-import 'package:r5/features/home/domain/usecases/get_coin_list_use_case.dart';
+import 'package:r5/features/home/domain/usecases/get_task_list_use_case.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final GetCoinListUseCase _getCoinListUseCase;
+  final GetTaskListUseCase _getTaskListUseCase;
 
   HomeCubit({
-    required GetCoinListUseCase getCoinListUseCase,
-  })  : _getCoinListUseCase = getCoinListUseCase,
+    required GetTaskListUseCase getTaskListUseCase,
+  })  : _getTaskListUseCase = getTaskListUseCase,
         super(HomeState.init());
 
   init(BuildContext context, {required String email}) {
-    getCoinList(context: context);
+    getTaskList(context: context);
     emit(state.copyWith(email: email));
     state.scrollController.addListener(() => _scrollListener(context: context));
   }
@@ -23,12 +23,12 @@ class HomeCubit extends Cubit<HomeState> {
   void _scrollListener({BuildContext? context}) {
     final position = state.scrollController.position;
     final isNearToFinish = position.pixels >= (position.maxScrollExtent - 100);
-    if (isNearToFinish && !state.isLoading) getCoinList(context: context);
+    if (isNearToFinish && !state.isLoading) getTaskList(context: context);
   }
 
-  getCoinList({BuildContext? context}) async {
+  getTaskList({BuildContext? context}) async {
     emit(state.copyWith(isLoading: true));
-    final result = await _getCoinListUseCase(GetCoinListParams(
+    final result = await _getTaskListUseCase(GetTaskListParams(
       skip: state.skip,
       limit: state.limit,
     ));
@@ -42,7 +42,7 @@ class HomeCubit extends Cubit<HomeState> {
           isLoading: false,
           skip: state.limit,
           limit: state.limit + 10,
-          coinList: state.coinList + r,
+          taskList: state.taskList + r,
         ));
       },
     );
@@ -65,13 +65,13 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void onTapCard(CoinModel coin) {
-    bool haveCoin = state.coinListFavorite.contains(coin);
-    if (haveCoin) state.coinListFavorite.remove(coin);
-    if (!haveCoin) state.coinListFavorite.add(coin);
-    emit(state.copyWith());
+  void onTapCard(TaskModel task) {
+  /*  bool haveTask = state.taskListFavorite.contains(task);
+    if (haveTask) state.taskListFavorite.remove(task);
+    if (!haveTask) state.taskListFavorite.add(task);
+    emit(state.copyWith());*/
   }
 
-  bool validateIsFavorite(CoinModel coin) =>
-      state.coinListFavorite.contains(coin);
+  bool validateIsFavorite(TaskModel task) =>
+      state.taskListFavorite.contains(task);
 }

@@ -1,24 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:r5/core/errors/failure.dart';
-import 'package:r5/core/model/coin_model.dart';
 import 'package:r5/core/base/base_usecase.dart';
+import 'package:r5/core/model/task_model.dart';
 import 'package:r5/features/home/domain/repositories/home_auth_repository.dart';
 
-class GetCoinListUseCase extends BaseUseCase<List<CoinModel>, GetCoinListParams> {
-  GetCoinListUseCase({required this.homeRepository});
+class GetTaskListUseCase extends BaseUseCase<List<TaskModel>, GetTaskListParams> {
+  GetTaskListUseCase({required this.homeRepository});
 
   final HomeRepository homeRepository;
 
   @override
-  Future<Either<Failure, List<CoinModel>>> call(GetCoinListParams params) =>
-      homeRepository.getListCoin(
+  Future<Either<Failure, List<TaskModel>>> call(GetTaskListParams params) =>
+      homeRepository.getListTask(
         skip: params.skip,
         limit: params.limit,
       );
 }
 
-class GetCoinListParams {
-  GetCoinListParams({
+class GetTaskListParams {
+  GetTaskListParams({
     required this.limit,
     required this.skip,
   });

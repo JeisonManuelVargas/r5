@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:r5/features/home/data/data_sources/home_data_source.dart';
 import 'package:r5/features/home/data/repositories/home_repository_impl.dart';
 import 'package:r5/features/home/domain/repositories/home_auth_repository.dart';
-import 'package:r5/features/home/domain/usecases/get_coin_list_use_case.dart';
+import 'package:r5/features/home/domain/usecases/get_task_list_use_case.dart';
 import 'package:r5/features/home/presentation/cubit/home_cubit.dart';
 import 'package:r5/features/login/data/data_sources/login_data_source.dart';
 import 'package:r5/features/login/data/repositories/login_repository_impl.dart';
@@ -23,7 +23,7 @@ Future<void> init() async {
   sl
 
     //cubit
-    ..registerFactory<HomeCubit>(() => HomeCubit(getCoinListUseCase: sl()))
+    ..registerFactory<HomeCubit>(() => HomeCubit(getTaskListUseCase: sl()))
     ..registerFactory<RegisterCubit>(() => RegisterCubit(registerUseCase: sl()))
     ..registerFactory<LoginCubit>(
         () => LoginCubit(signInEmailPasswordUseCase: sl()))
@@ -35,8 +35,8 @@ Future<void> init() async {
     ..registerFactory<RegisterUseCase>(
       () => RegisterUseCase(registerRepository: sl()),
     )
-    ..registerFactory<GetCoinListUseCase>(
-      () => GetCoinListUseCase(homeRepository: sl()),
+    ..registerFactory<GetTaskListUseCase>(
+      () => GetTaskListUseCase(homeRepository: sl()),
     )
 
     //Repository

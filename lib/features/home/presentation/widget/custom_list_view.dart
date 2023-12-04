@@ -1,47 +1,47 @@
 import 'package:flutter/cupertino.dart';
-import 'package:r5/core/model/coin_model.dart';
+import 'package:r5/core/model/task_model.dart';
 import 'package:r5/core/widget/custom_card.dart';
 import 'package:r5/core/widget/custom_title.dart';
 
-typedef IsFavorite = bool Function(CoinModel);
+typedef IsFavorite = bool Function(TaskModel);
 
 class CustomListView extends StatelessWidget {
   final GlobalKey? listKey;
   final IsFavorite isFavorite;
-  final List<CoinModel> listCoin;
+  final List<TaskModel> listTask;
   final ScrollController? controller;
-  final Function(CoinModel) onTapCard;
+  final Function(TaskModel) onTapCard;
 
   const CustomListView({
     Key? key,
     this.listKey,
     this.controller,
-    required this.listCoin,
+    required this.listTask,
     required this.onTapCard,
     required this.isFavorite,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return listCoin.isNotEmpty
+    return listTask.isNotEmpty
         ? ListView.builder(
             key: listKey,
             controller: controller,
-            itemCount: listCoin.length,
+            itemCount: listTask.length,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: CustomCard(
+            /*  child: CustomCard(
                 onTapButton: (){},
-                onTap: () => onTapCard(listCoin[index]),
+                onTap: () => onTapCard(listTask[index]),
                 customCardModel: CustomCardModel(
-                  name: listCoin[index].name,
-                  image: listCoin[index].icon,
-                  rank: listCoin[index].rank.toString(),
-                  isFavorite: isFavorite(listCoin[index]),
+                  name: listTask[index].name,
+                  image: listTask[index].icon,
+                  rank: listTask[index].rank.toString(),
+                  isFavorite: isFavorite(listTask[index]),
                   overview: '',
                 ),
-              ),
+              ),*/
             ),
           )
         : Container(

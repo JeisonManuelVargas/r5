@@ -51,14 +51,14 @@ class Home extends BasePage<HomeState, HomeCubit> {
                     children: [
                       CustomListView(
                         key: state.listCoinKey,
-                        listCoin: state.coinList,
+                        listTask: state.taskList,
                         onTapCard: bloc.onTapCard,
                         controller: state.scrollController,
                         isFavorite: bloc.validateIsFavorite,
                       ),
                       CustomListView(
                         onTapCard: bloc.onTapCard,
-                        listCoin: state.coinListFavorite,
+                        listTask: state.taskListFavorite,
                         isFavorite: bloc.validateIsFavorite,
                         controller: state.scrollControllerFavorite,
                       ),
