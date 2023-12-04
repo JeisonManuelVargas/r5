@@ -7,11 +7,14 @@ import 'package:r5/core/widget/custom_button.dart';
 import 'package:r5/features/create_task/presentation/cubit/create_task_cubit.dart';
 
 class CreateTask extends BasePage<CreateTaskState, CreateTaskCubit> {
-  const CreateTask({super.key});
+
+  final String email;
+
+  const CreateTask({super.key, required this.email});
 
   @override
   CreateTaskCubit createBloc(BuildContext context) =>
-      sl<CreateTaskCubit>()..init(context);
+      sl<CreateTaskCubit>()..init(context, email);
 
   @override
   Widget buildPage(BuildContext context, state, bloc) {

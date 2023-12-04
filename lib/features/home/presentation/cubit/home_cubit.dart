@@ -36,7 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
     result.fold(
       (dynamic l) {
         emit(state.copyWith(isLoading: false));
-        if(context != null) customSnackBar(context, content: l.code);
+        if (context != null) customSnackBar(context, content: l.code);
       },
       (r) async {
         emit(state.copyWith(
@@ -67,13 +67,16 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onTapCard(TaskModel task) {
-  /*  bool haveTask = state.taskListFavorite.contains(task);
+    /*  bool haveTask = state.taskListFavorite.contains(task);
     if (haveTask) state.taskListFavorite.remove(task);
     if (!haveTask) state.taskListFavorite.add(task);
     emit(state.copyWith());*/
   }
-  
-  goToCreateTask()=> AppNavigator.push(Routes.CREATE_TASK);
+
+  goToCreateTask() => AppNavigator.push(
+        Routes.CREATE_TASK,
+        arguments: state.email,
+      );
 
   bool validateIsFavorite(TaskModel task) =>
       state.taskListFavorite.contains(task);

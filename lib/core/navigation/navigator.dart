@@ -53,7 +53,7 @@ class AppNavigator {
       case _Page.register:
         return _pageRoute(page: const Register(), settings: settings);
       case _Page.createTask:
-        return _pageRoute(page: const CreateTask(), settings: settings);
+        return _pageRoute(page: CreateTask(email: email,), settings: settings);
       default:
         return _pageRoute(page: const Login(), settings: settings);
     }

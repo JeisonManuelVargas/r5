@@ -14,7 +14,8 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
       : _createTaskUseCase = createTaskUseCase,
         super(CreateTaskState.init());
 
-  init(BuildContext context) {}
+  init(BuildContext context, String email) =>
+      emit(state.copyWith(email: email));
 
   createTaskValidate({BuildContext? context}) {
     if (state.formKey.currentState!.validate()) {
@@ -31,19 +32,20 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
       description: state.descriptionController.text,
     ));
     result.fold(
-          (dynamic l) {
+      (dynamic l) {
         if (context != null) customSnackBar(context, content: l.code);
         emit(state.copyWith(isLoading: false));
       },
-          (r) {
+      (r) {
         if (context != null) {
           customSnackBar(
             context,
             isSuccess: true,
-            content: "the user was created successfully",
+            content: "the task was created successfully",
           );
         }
         emit(state.copyWith(isLoading: false));
+        AppNavigator.pop();
       },
     );
   }
@@ -53,5 +55,6 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
     if (element.isEmpty) return "this field cannot be empty";
     return null;
   }
+
   goBack() => AppNavigator.pop();
 }
