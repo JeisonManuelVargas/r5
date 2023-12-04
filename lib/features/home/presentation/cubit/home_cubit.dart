@@ -40,11 +40,10 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (r) async {
         StreamSubscription stream = r.listen((event) {
-          final listTask =
-              event.docs.map((e) => TaskModel.fromJson(e)).toList();
+          final listTask = event.docs.map((e) => TaskModel.fromJson(e)).toList();
+          listTask.sort((a,b)=> a.dateCreated.compareTo(b.dateCreated));
           emit(state.copyWith(taskList: listTask));
         });
-
         emit(state.copyWith(isLoading: false, stream: stream));
       },
     );
