@@ -6,6 +6,7 @@ import 'package:r5/core/base/base_usecase.dart';
 import 'package:r5/core/model/task_model.dart';
 import 'package:r5/core/navigation/navigator.dart';
 import 'package:r5/core/util/custom_snack_bar.dart';
+import 'package:google_cloud_translation/google_cloud_translation.dart';
 import 'package:r5/features/home/domain/usecases/get_task_list_use_case.dart';
 
 part 'home_state.dart';
@@ -40,8 +41,10 @@ class HomeCubit extends Cubit<HomeState> {
       },
       (r) async {
         StreamSubscription stream = r.listen((event) {
-          final listTask = event.docs.map((e) => TaskModel.fromJson(e)).toList();
-          listTask.sort((a,b)=> a.dateCreated.compareTo(b.dateCreated));
+          final listTask = event.docs
+              .map((e) => TaskModel.fromJson(e.data(), e.id))
+              .toList();
+          listTask.sort((a, b) => a.dateCreated.compareTo(b.dateCreated));
           emit(state.copyWith(taskList: listTask));
         });
         emit(state.copyWith(isLoading: false, stream: stream));
@@ -70,6 +73,36 @@ class HomeCubit extends Cubit<HomeState> {
     bool haveTask = state.taskListFavorite.contains(task);
     if (haveTask) state.taskListFavorite.remove(task);
     if (!haveTask) state.taskListFavorite.add(task);
+    emit(state.copyWith());
+  }
+
+  void buttonTap(TaskModel task) async {
+    int index = state.taskList.indexWhere((element) => element.id == task.id);
+    final detected = await state.translation.detectLang(text: task.description);
+    state.taskList[index].language = detected.detectedSourceLanguage;
+    final newText = await state.translation.translate(
+      text: task.description,
+      to: selectLanguage(detected.detectedSourceLanguage),
+    );
+    state.taskList[index].description = newText.translatedText;
+    emit(state.copyWith());
+  }
+
+  String selectLanguage(detected) {
+    if (detected == "es") return "en";
+    if (detected == "en") return "es";
+    return "es";
+  }
+
+  void buttonTapFavorite(TaskModel task) async {
+    int index = state.taskListFavorite.indexWhere((element) => element.id == task.id);
+    final detected = await state.translation.detectLang(text: task.description);
+    state.taskListFavorite[index].language = detected.detectedSourceLanguage;
+    final newText = await state.translation.translate(
+      text: task.description,
+      to: selectLanguage(detected.detectedSourceLanguage),
+    );
+    state.taskListFavorite[index].description = newText.translatedText;
     emit(state.copyWith());
   }
 

@@ -50,11 +50,13 @@ class Home extends BasePage<HomeState, HomeCubit> {
                         key: state.listTaskKey,
                         listTask: state.taskList,
                         onTapCard: bloc.onTapCard,
+                        buttonTap: bloc.buttonTap,
                         controller: state.scrollController,
                         isFavorite: bloc.validateIsFavorite,
                       ),
                       CustomListView(
                         onTapCard: bloc.onTapCard,
+                        buttonTap: bloc.buttonTap,
                         listTask: state.taskListFavorite,
                         isFavorite: bloc.validateIsFavorite,
                         controller: state.scrollControllerFavorite,

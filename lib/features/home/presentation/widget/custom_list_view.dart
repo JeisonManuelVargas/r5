@@ -11,6 +11,7 @@ class CustomListView extends StatelessWidget {
   final List<TaskModel> listTask;
   final ScrollController? controller;
   final Function(TaskModel) onTapCard;
+  final Function(TaskModel) buttonTap;
 
   const CustomListView({
     Key? key,
@@ -19,6 +20,7 @@ class CustomListView extends StatelessWidget {
     required this.listTask,
     required this.onTapCard,
     required this.isFavorite,
+    required this.buttonTap,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class CustomListView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: CustomCard(
                 onTap: () => onTapCard(listTask[index]),
+                buttonTap: () => buttonTap(listTask[index]),
                 customCardModel: CustomCardModel(
                   name: listTask[index].nameTask,
                   description: listTask[index].description,

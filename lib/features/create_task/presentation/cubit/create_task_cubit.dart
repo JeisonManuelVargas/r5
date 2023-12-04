@@ -26,6 +26,8 @@ class CreateTaskCubit extends Cubit<CreateTaskState> {
 
   _createTask({BuildContext? context}) async {
     final result = await _createTaskUseCase(TaskModel(
+      id: "",
+      language: "es",
       creatorName: state.email,
       dateCreated: DateTime.now(),
       nameTask: state.nameTaskController.text,

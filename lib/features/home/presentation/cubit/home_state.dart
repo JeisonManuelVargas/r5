@@ -4,6 +4,7 @@ class HomeState {
   final String email;
   final bool isLoading;
   final GlobalKey listTaskKey;
+  final Translation translation;
   final List<TaskModel> taskList;
   final StreamSubscription? stream;
   final PageController pageController;
@@ -16,6 +17,7 @@ class HomeState {
     required this.stream,
     required this.taskList,
     required this.isLoading,
+    required this.translation,
     required this.listTaskKey,
     required this.pageController,
     required this.scrollController,
@@ -27,6 +29,8 @@ class HomeState {
         email: "",
         stream: null,
         taskList: [],
+        translation:
+            Translation(apiKey: "AIzaSyAyKH5g3pdmtduNEhw9P-Br9sgAyPWVHuE"),
         isLoading: false,
         taskListFavorite: [],
         listTaskKey: GlobalKey(),
@@ -43,6 +47,7 @@ class HomeState {
     List<TaskModel>? taskListFavorite,
   }) =>
       HomeState(
+        translation: translation,
         listTaskKey: listTaskKey,
         email: email ?? this.email,
         stream: stream ?? this.stream,
