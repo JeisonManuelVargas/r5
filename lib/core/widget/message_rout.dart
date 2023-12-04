@@ -22,7 +22,7 @@ class MessageRout extends StatelessWidget {
         Text(
           firstLabel,
           style: const TextStyle(
-            color: AppColors.disable,
+            color: AppColors.black,
             fontWeight: FontWeight.w300,
           ),
         ),

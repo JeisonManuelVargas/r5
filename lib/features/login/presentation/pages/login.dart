@@ -34,6 +34,7 @@ class Login extends BasePage<LoginState, LoginCubit> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: const TitleCustom(
+                    mode: Mode.dark,
                     firstTitle: "Login",
                     secondTitle: "por favor ingrese sus credenciales",
                   ),
