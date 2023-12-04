@@ -48,6 +48,7 @@ class CustomListView extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 150),
             child: const Center(
               child: TitleCustom(
+                mode: Mode.dark,
                 firstTitle: "Empty list",
                 secondTitle: "At this time we do not have any data",
               ),

@@ -8,11 +8,11 @@ class HeaderCustom extends StatelessWidget {
   final Function(String) onTap;
 
   const HeaderCustom({
-    Key? key,
+    super.key,
     required this.title,
     required this.onTap,
     required this.subTitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +62,11 @@ class HeaderCustom extends StatelessWidget {
               label,
               style: const TextStyle(
                 fontSize: 20,
-                color: AppColors.black,
+                color: AppColors.primary,
                 fontWeight: FontWeight.w600,
                 shadows: [
                   Shadow(
-                    color: AppColors.primary,
+                    color: AppColors.black,
                     offset: Offset(1, 1),
                   )
                 ],
