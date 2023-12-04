@@ -11,9 +11,9 @@ class TaskModel {
     required this.description,
   });
 
-  factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
+  factory TaskModel.fromJson(json) => TaskModel(
     nameTask: json["name_task"],
-    dateCreated: json["date_created"],
+    dateCreated: json["date_created"].toDate(),
     description: json["description"],
     creatorName: json["creator_id"],
   );

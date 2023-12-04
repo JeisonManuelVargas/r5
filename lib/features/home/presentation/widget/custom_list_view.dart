@@ -31,17 +31,14 @@ class CustomListView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-            /*  child: CustomCard(
-                onTapButton: (){},
+              child: CustomCard(
                 onTap: () => onTapCard(listTask[index]),
                 customCardModel: CustomCardModel(
-                  name: listTask[index].name,
-                  image: listTask[index].icon,
-                  rank: listTask[index].rank.toString(),
+                  name: listTask[index].nameTask,
+                  description: listTask[index].description,
                   isFavorite: isFavorite(listTask[index]),
-                  overview: '',
                 ),
-              ),*/
+              ),
             ),
           )
         : Container(

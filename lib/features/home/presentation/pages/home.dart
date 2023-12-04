@@ -47,7 +47,7 @@ class Home extends BasePage<HomeState, HomeCubit> {
                     controller: state.pageController,
                     children: [
                       CustomListView(
-                        key: state.listCoinKey,
+                        key: state.listTaskKey,
                         listTask: state.taskList,
                         onTapCard: bloc.onTapCard,
                         controller: state.scrollController,

@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker_loading_jm/image_picker_loading_jm.dart';
 import 'package:r5/core/util/app_color.dart';
-import 'package:r5/core/widget/custom_button.dart';
+import 'package:image_picker_loading_jm/image_picker_loading_jm.dart';
 
 class CustomCardModel {
-  final String rank;
   final String name;
-  final String image;
-  final String overview;
   final bool isFavorite;
+  final String description;
 
   CustomCardModel({
-    required this.rank,
     required this.name,
-    required this.image,
-    required this.overview,
     required this.isFavorite,
+    required this.description,
   });
 }
 
 class CustomCard extends StatelessWidget {
   final Function() onTap;
-  final Function() onTapButton;
   final CustomCardModel customCardModel;
 
   const CustomCard({
     Key? key,
     required this.onTap,
-    required this.onTapButton,
     required this.customCardModel,
   }) : super(key: key);
 
@@ -48,7 +41,8 @@ class CustomCard extends StatelessWidget {
             children: [
               ImagePickerLoadingJM(
                 imagePickerLoadingJModel: ImagePickerLoadingJModel(
-                  image: customCardModel.image,
+                  image:
+                      "https://cdn-icons-png.flaticon.com/512/2098/2098402.png",
                   buildBody: (context, provider) => Container(
                     height: 100,
                     width: 120,
@@ -74,21 +68,20 @@ class CustomCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 17,
-                        color: AppColors.black,
+                        color: AppColors.primary,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
+                    const SizedBox(height: 10),
                     Text(
-                      customCardModel.overview,
+                      customCardModel.description,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        color: AppColors.disable,
+                        color: AppColors.primary,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    CustomButton(label: "ver", onTap: onTapButton)
                   ],
                 ),
               ),

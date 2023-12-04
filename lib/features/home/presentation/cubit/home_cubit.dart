@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:r5/core/base/base_usecase.dart';
 import 'package:r5/core/model/task_model.dart';
 import 'package:r5/core/navigation/navigator.dart';
 import 'package:r5/core/util/custom_snack_bar.dart';
@@ -29,22 +32,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   getTaskList({BuildContext? context}) async {
     emit(state.copyWith(isLoading: true));
-    final result = await _getTaskListUseCase(GetTaskListParams(
-      skip: state.skip,
-      limit: state.limit,
-    ));
+    final result = await _getTaskListUseCase(NoParams());
     result.fold(
       (dynamic l) {
         emit(state.copyWith(isLoading: false));
         if (context != null) customSnackBar(context, content: l.code);
       },
       (r) async {
-        emit(state.copyWith(
-          isLoading: false,
-          skip: state.limit,
-          limit: state.limit + 10,
-          taskList: state.taskList + r,
-        ));
+        StreamSubscription stream = r.listen((event) {
+          final listTask =
+              event.docs.map((e) => TaskModel.fromJson(e)).toList();
+          emit(state.copyWith(taskList: listTask));
+        });
+
+        emit(state.copyWith(isLoading: false, stream: stream));
       },
     );
   }
@@ -67,10 +68,10 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onTapCard(TaskModel task) {
-    /*  bool haveTask = state.taskListFavorite.contains(task);
+    bool haveTask = state.taskListFavorite.contains(task);
     if (haveTask) state.taskListFavorite.remove(task);
     if (!haveTask) state.taskListFavorite.add(task);
-    emit(state.copyWith());*/
+    emit(state.copyWith());
   }
 
   goToCreateTask() => AppNavigator.push(
@@ -80,4 +81,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool validateIsFavorite(TaskModel task) =>
       state.taskListFavorite.contains(task);
+
+  @override
+  Future<void> close() {
+    state.stream!.cancel();
+    return super.close();
+  }
 }

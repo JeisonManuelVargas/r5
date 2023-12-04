@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:r5/core/model/task_model.dart';
 
 abstract class HomeDataSource {
-  Future<List<TaskModel>> getListTask({
-    required int skip,
-    required int limit,
-  });
+  Future<Stream<QuerySnapshot>> getListTask();
 }
 
 class HomeDataSourceImpl implements HomeDataSource {
@@ -15,10 +11,7 @@ class HomeDataSourceImpl implements HomeDataSource {
   HomeDataSourceImpl({required this.db});
 
   @override
-  Future<List<TaskModel>> getListTask({
-    required int skip,
-    required int limit,
-  }) async {
-  return [];
+  Future<Stream<QuerySnapshot>> getListTask() async {
+    return db.collection("task").snapshots();
   }
 }

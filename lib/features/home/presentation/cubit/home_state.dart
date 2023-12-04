@@ -1,24 +1,22 @@
 part of 'home_cubit.dart';
 
 class HomeState {
-  final int skip;
-  final int limit;
   final String email;
   final bool isLoading;
-  final GlobalKey listCoinKey;
+  final GlobalKey listTaskKey;
   final List<TaskModel> taskList;
+  final StreamSubscription? stream;
   final PageController pageController;
   final List<TaskModel> taskListFavorite;
   final ScrollController scrollController;
   final ScrollController scrollControllerFavorite;
 
   const HomeState({
-    required this.skip,
-    required this.limit,
     required this.email,
+    required this.stream,
     required this.taskList,
     required this.isLoading,
-    required this.listCoinKey,
+    required this.listTaskKey,
     required this.pageController,
     required this.scrollController,
     required this.taskListFavorite,
@@ -26,31 +24,28 @@ class HomeState {
   });
 
   factory HomeState.init() => HomeState(
-        skip: 0,
         email: "",
-        limit: 10,
+        stream: null,
         taskList: [],
         isLoading: false,
         taskListFavorite: [],
-        listCoinKey: GlobalKey(),
+        listTaskKey: GlobalKey(),
         pageController: PageController(),
         scrollController: ScrollController(),
         scrollControllerFavorite: ScrollController(),
       );
 
   HomeState copyWith({
-    int? skip,
-    int? limit,
     String? email,
     bool? isLoading,
     List<TaskModel>? taskList,
+    StreamSubscription? stream,
     List<TaskModel>? taskListFavorite,
   }) =>
       HomeState(
-        skip: skip ?? this.skip,
-        listCoinKey: listCoinKey,
-        limit: limit ?? this.limit,
+        listTaskKey: listTaskKey,
         email: email ?? this.email,
+        stream: stream ?? this.stream,
         pageController: pageController,
         scrollController: scrollController,
         taskList: taskList ?? this.taskList,
