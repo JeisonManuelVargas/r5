@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:r5/core/widget/custom_button.dart';
 import 'package:r5/injection_container.dart';
 import 'package:r5/core/base/base_page.dart';
 import 'package:r5/features/home/presentation/cubit/home_cubit.dart';
@@ -33,17 +34,13 @@ class Home extends BasePage<HomeState, HomeCubit> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
-                fit: FlexFit.loose,
-                child: HeaderCustom(
-                  title: "Welcome",
-                  subTitle: state.email,
-                  onTap: bloc.changeListView,
-                ),
+              HeaderCustom(
+                title: "Welcome",
+                subTitle: state.email,
+                onTap: bloc.changeListView,
               ),
               Flexible(
                 fit: FlexFit.loose,
-                flex: 3,
                 child: LoadingPage(
                   isLoading: state.isLoading,
                   child: PageView(
@@ -65,7 +62,12 @@ class Home extends BasePage<HomeState, HomeCubit> {
                     ],
                   ),
                 ),
-              )
+              ),
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.03),
+                child: CustomButton(label: "Create Task", onTap: () {}),
+              ),
             ],
           ),
         ),

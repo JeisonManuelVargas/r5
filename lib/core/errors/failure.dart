@@ -1,11 +1,5 @@
 abstract class Failure {}
 
-class DetailMovieFailure implements Failure {
-  final String code;
-
-  DetailMovieFailure({required this.code});
-}
-
 class HomeFailure implements Failure {
   final String code;
 
@@ -23,3 +17,10 @@ class RegisterFailure implements Failure {
 
   RegisterFailure({required this.code});
 }
+
+class CreateTaskFailure implements Failure {
+  final String code;
+
+  CreateTaskFailure({required this.code});
+}
+

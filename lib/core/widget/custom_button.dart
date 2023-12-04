@@ -28,7 +28,7 @@ class CustomButton extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(40),
         child:  Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
           child: Text(
             label,
             style: const TextStyle(
