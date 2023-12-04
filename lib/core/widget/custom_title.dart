@@ -22,7 +22,7 @@ class TitleCustom extends StatelessWidget {
           firstTitle,
           style: const TextStyle(
             fontSize: 25,
-            color: AppColors.white,
+            color: AppColors.black,
             fontWeight: FontWeight.w800,
             shadows: [
               Shadow(

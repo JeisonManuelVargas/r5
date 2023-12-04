@@ -11,3 +11,15 @@ class HomeFailure implements Failure {
 
   HomeFailure({required this.code});
 }
+
+class LoginFailure implements Failure {
+  final String code;
+
+  LoginFailure({required this.code});
+}
+
+class RegisterFailure implements Failure {
+  final String code;
+
+  RegisterFailure({required this.code});
+}

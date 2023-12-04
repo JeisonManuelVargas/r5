@@ -35,7 +35,7 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 2,
-      color: AppColors.white,
+      color: AppColors.black,
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: onTap,

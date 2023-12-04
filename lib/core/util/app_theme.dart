@@ -10,8 +10,5 @@ ThemeData getThemeData(BuildContext context) {
     ),
     appBarTheme: const AppBarTheme(color: AppColors.primary),
     scaffoldBackgroundColor: AppColors.primary,
-    colorScheme: const ColorScheme.dark(
-      primary: Colors.white,
-    ),
   );
 }

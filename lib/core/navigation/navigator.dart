@@ -1,23 +1,29 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:r5/core/model/movie_model.dart';
+import 'package:r5/core/animations/fade_page_route.dart';
+import 'package:r5/features/home/presentation/pages/home.dart';
+import 'package:r5/features/login/presentation/pages/login.dart';
+import 'package:r5/features/register/presentation/pages/register.dart';
 
 enum Routes {
   HOME,
+  LOGIN,
   SPLASH,
-  DETAIL_MOVIE,
+  REGISTER,
 }
 
 class _Page {
   static const String home = '/home';
+  static const String login = '/login';
   static const String splash = '/splash';
-  static const String detailMovie = '/detailMovie';
+  static const String register = '/register';
 
   static const Map<Routes, String> _pageMap = {
     Routes.HOME: home,
+    Routes.LOGIN: login,
     Routes.SPLASH: splash,
-    Routes.DETAIL_MOVIE: detailMovie,
+    Routes.REGISTER: register,
   };
 
   static String? page(Routes routes) => _pageMap[routes];
@@ -29,23 +35,21 @@ class AppNavigator {
   static NavigatorState get state => navigatorKey.currentState!;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    MovieModel movieModel = MovieModel.init();
+    String email = '';
 
     dynamic argument = settings.arguments;
 
-    if (argument is MovieModel) movieModel = argument;
+    if (argument is String) email = argument;
 
     switch (settings.name) {
       case _Page.home:
-        return _pageRoute(
-          page: const Home(),
-          settings: settings,
-        );
+        return _pageRoute(page: Home(email: email), settings: settings);
+      case _Page.login:
+        return _pageRoute(page: const Login(), settings: settings);
+      case _Page.register:
+        return _pageRoute(page: const Register(), settings: settings);
       default:
-        return _pageRoute(
-          page: const Home(),
-          settings: settings,
-        );
+        return _pageRoute(page: const Login(), settings: settings);
     }
   }
 
@@ -56,29 +60,29 @@ class AppNavigator {
   }) {
     return Platform.isIOS
         ? CupertinoPageRoute<Route>(
-            settings: settings,
-            builder: (context) => page,
-          )
+      settings: settings,
+      builder: (context) => page,
+    )
         : FadeRoute(
-            page: page,
-            routeSettings: settings,
-            transitionDuration: transitionDuration,
-          ) as Route;
+      page: page,
+      routeSettings: settings,
+      transitionDuration: transitionDuration,
+    ) as Route;
   }
 
   static Future push<T>(
-    Routes route, {
-    Object? arguments,
-    Function(dynamic)? callBack,
-  }) =>
+      Routes route, {
+        Object? arguments,
+        Function(dynamic)? callBack,
+      }) =>
       state.pushNamed(_Page.page(route)!, arguments: arguments).then(
             (value) => callBack != null ? callBack(value) : {},
-          );
+      );
 
   static Future pushNamedAndRemoveUntil(Routes route, {Object? arguments}) =>
       state.pushNamedAndRemoveUntil(
         _Page.page(route)!,
-        (Route routes) => false,
+            (Route routes) => false,
         arguments: arguments,
       );
 
@@ -86,5 +90,5 @@ class AppNavigator {
 
   static void popUntil(Routes route) => state.popUntil(
         (routes) => routes.settings.name == _Page.page(route)!,
-      );
+  );
 }
