@@ -1,45 +1,42 @@
 part of 'create_task_cubit.dart';
 
 class CreateTaskState {
+  final String email;
   final bool isLoading;
-  final UserModel userModel;
+  final TaskModel taskModel;
   final GlobalKey<FormState> formKey;
-  final TextEditingController phoneController;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
-  final TextEditingController repeatPasswordController;
+  final TextEditingController nameTaskController;
+  final TextEditingController descriptionController;
 
   const CreateTaskState({
+    required this.email,
     required this.formKey,
-    required this.userModel,
+    required this.taskModel,
     required this.isLoading,
-    required this.emailController,
-    required this.phoneController,
-    required this.passwordController,
-    required this.repeatPasswordController,
+    required this.nameTaskController,
+    required this.descriptionController,
   });
 
   factory CreateTaskState.init() => CreateTaskState(
+        email: "",
         isLoading: false,
-        userModel: UserModel.init(),
+        taskModel: TaskModel.init(),
         formKey: GlobalKey<FormState>(),
-        phoneController: TextEditingController(),
-        emailController: TextEditingController(),
-        passwordController: TextEditingController(),
-        repeatPasswordController: TextEditingController(),
+        nameTaskController: TextEditingController(),
+        descriptionController: TextEditingController(),
       );
 
   CreateTaskState copyWith({
     bool? isLoading,
-    UserModel? userModel,
+    TaskModel? taskModel,
+    String? email,
   }) =>
       CreateTaskState(
         formKey: formKey,
-        emailController: emailController,
-        phoneController: phoneController,
-        userModel: userModel ?? this.userModel,
+        email: email ?? this.email,
+        nameTaskController: nameTaskController,
+        taskModel: taskModel ?? this.taskModel,
         isLoading: isLoading ?? this.isLoading,
-        passwordController: passwordController,
-        repeatPasswordController: repeatPasswordController,
+        descriptionController: descriptionController,
       );
 }

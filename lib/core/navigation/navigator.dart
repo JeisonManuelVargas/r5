@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:r5/core/animations/fade_page_route.dart';
+import 'package:r5/features/create_task/presentation/pages/create_task.dart';
 import 'package:r5/features/home/presentation/pages/home.dart';
 import 'package:r5/features/login/presentation/pages/login.dart';
 import 'package:r5/features/register/presentation/pages/register.dart';
@@ -11,6 +12,7 @@ enum Routes {
   LOGIN,
   SPLASH,
   REGISTER,
+  CREATE_TASK,
 }
 
 class _Page {
@@ -18,12 +20,14 @@ class _Page {
   static const String login = '/login';
   static const String splash = '/splash';
   static const String register = '/register';
+  static const String createTask = '/createTask';
 
   static const Map<Routes, String> _pageMap = {
     Routes.HOME: home,
     Routes.LOGIN: login,
     Routes.SPLASH: splash,
     Routes.REGISTER: register,
+    Routes.CREATE_TASK: createTask,
   };
 
   static String? page(Routes routes) => _pageMap[routes];
@@ -48,6 +52,8 @@ class AppNavigator {
         return _pageRoute(page: const Login(), settings: settings);
       case _Page.register:
         return _pageRoute(page: const Register(), settings: settings);
+      case _Page.createTask:
+        return _pageRoute(page: const CreateTask(), settings: settings);
       default:
         return _pageRoute(page: const Login(), settings: settings);
     }

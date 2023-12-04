@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:r5/core/errors/exceptions.dart';
-import 'package:r5/core/model/user_model.dart';
+import 'package:r5/core/model/task_model.dart';
 
 abstract class CreateTaskDataSource {
-  Future<UserModel?> registerWithEmailAndPassword({
-    required UserModel userModel,
+  Future<bool> createTask({
+    required TaskModel taskModel,
   });
 }
 
 class CreateTaskDataSourceImpl implements CreateTaskDataSource {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
-  final String userController = "users";
+  final String taskController = "task";
 
   CreateTaskDataSourceImpl({
     required this.firestore,
@@ -20,20 +20,12 @@ class CreateTaskDataSourceImpl implements CreateTaskDataSource {
   });
 
   @override
-  Future<UserModel?> registerWithEmailAndPassword({
-    required UserModel userModel,
+  Future<bool> createTask({
+    required TaskModel taskModel,
   }) async {
     try {
-      final userCredential = await auth.createUserWithEmailAndPassword(
-        email: userModel.email,
-        password: userModel.password,
-      );
-
-      String id = userCredential.user!.uid;
-
-      firestore.collection(userController).doc(id).set(userModel.toJson());
-
-      return userModel.copyWith(id: id);
+      firestore.collection(taskController).add(taskModel.toJson());
+      return true;
     } on FirebaseException catch (e) {
       throw CreateTaskException(code: e.message!);
     }

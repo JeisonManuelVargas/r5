@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:r5/features/create_task/presentation/cubit/create_task_cubit.dart';
 import 'package:r5/injection_container.dart';
 import 'package:r5/core/base/base_page.dart';
 import 'package:r5/core/widget/custom_title.dart';
-import 'package:r5/core/widget/message_rout.dart';
 import 'package:r5/core/widget/custom_input.dart';
 import 'package:r5/core/widget/custom_button.dart';
+import 'package:r5/features/create_task/presentation/cubit/create_task_cubit.dart';
 
 class CreateTask extends BasePage<CreateTaskState, CreateTaskCubit> {
   const CreateTask({super.key});
@@ -29,47 +28,36 @@ class CreateTask extends BasePage<CreateTaskState, CreateTaskCubit> {
                 Container(
                   alignment: Alignment.center,
                   child: const TitleCustom(
+                    mode: Mode.dark,
                     firstTitle: "CreateTask",
                     secondTitle: "please write your data",
                     crossAxisAlignment: CrossAxisAlignment.center,
                   ),
                 ),
-                CustomInput(
-                  label: "Email",
-                  icon: Icons.email_outlined,
-                  validation: bloc.validateEmail,
-                  controller: state.emailController,
-                ),
-                CustomInput(
-                  label: "Phone Number",
-                  validation: bloc.validatePhone,
-                  icon: Icons.phone_enabled_outlined,
-                  controller: state.phoneController,
-                ),
-                CustomInput(
-                  label: "Password",
-                  icon: Icons.lock_open,
-                  validation: bloc.validatePassword,
-                  controller: state.passwordController,
-                ),
-                CustomInput(
-                  label: "Repeat Password",
-                  icon: Icons.lock_open,
-                  validation: bloc.validateResetPassword,
-                  controller: state.repeatPasswordController,
-                ),
+               Column(
+                 children: [
+                   CustomInput(
+                     icon: Icons.task,
+                     label: "Task Name",
+                     validation: bloc.validate,
+                     controller: state.nameTaskController,
+                   ),
+                   const SizedBox(height: 20),
+                   CustomInput(
+                     label: "Task Description",
+                     validation: bloc.validate,
+                     icon: Icons.description,
+                     controller: state.descriptionController,
+                   ),
+                 ],
+               ),
                 state.isLoading
                     ? const CircularProgressIndicator()
                     : CustomButton(
                         state: CustomButtonEnum.enable,
-                        label: "SIGN UP",
-                        onTap: () => bloc.signUp(context: context),
+                        label: "Create Task",
+                        onTap: () => bloc.createTaskValidate(context: context),
                       ),
-                MessageRout(
-                  onTap: bloc.goBack,
-                  firstLabel: "Already have a account",
-                  secondLabel: "Sign in",
-                )
               ],
             ),
           ),

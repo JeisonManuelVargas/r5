@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:r5/core/model/task_model.dart';
+import 'package:r5/core/navigation/navigator.dart';
 import 'package:r5/core/util/custom_snack_bar.dart';
 import 'package:r5/features/home/domain/usecases/get_task_list_use_case.dart';
 
@@ -71,6 +72,8 @@ class HomeCubit extends Cubit<HomeState> {
     if (!haveTask) state.taskListFavorite.add(task);
     emit(state.copyWith());*/
   }
+  
+  goToCreateTask()=> AppNavigator.push(Routes.CREATE_TASK);
 
   bool validateIsFavorite(TaskModel task) =>
       state.taskListFavorite.contains(task);

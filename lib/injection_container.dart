@@ -1,6 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:r5/features/create_task/data/data_sources/create_task_data_source.dart';
+import 'package:r5/features/create_task/data/repositories/create_task_repository_impl.dart';
+import 'package:r5/features/create_task/domain/repositories/create_task_repository.dart';
+import 'package:r5/features/create_task/domain/usecases/create_task_use_case.dart';
+import 'package:r5/features/create_task/presentation/cubit/create_task_cubit.dart';
 import 'package:r5/features/home/data/data_sources/home_data_source.dart';
 import 'package:r5/features/home/data/repositories/home_repository_impl.dart';
 import 'package:r5/features/home/domain/repositories/home_auth_repository.dart';
@@ -25,12 +30,15 @@ Future<void> init() async {
     //cubit
     ..registerFactory<HomeCubit>(() => HomeCubit(getTaskListUseCase: sl()))
     ..registerFactory<RegisterCubit>(() => RegisterCubit(registerUseCase: sl()))
-    ..registerFactory<LoginCubit>(
-        () => LoginCubit(signInEmailPasswordUseCase: sl()))
+    ..registerFactory<LoginCubit>(() => LoginCubit(signInEmailPasswordUseCase: sl()))
+    ..registerFactory<CreateTaskCubit>(() => CreateTaskCubit(createTaskUseCase: sl()))
 
     //user Case
     ..registerFactory<SignInEmailPasswordUseCase>(
       () => SignInEmailPasswordUseCase(loginRepository: sl()),
+    )
+    ..registerFactory<CreateTaskUseCase>(
+      () => CreateTaskUseCase(createTaskRepository: sl()),
     )
     ..registerFactory<RegisterUseCase>(
       () => RegisterUseCase(registerRepository: sl()),
@@ -43,6 +51,9 @@ Future<void> init() async {
     ..registerFactory<HomeRepository>(
       () => HomeRepositoryImpl(homeDataSource: sl()),
     )
+    ..registerFactory<CreateTaskRepository>(
+      () => CreateTaskRepositoryImpl(createTaskDataSource: sl()),
+    )
     ..registerFactory<LoginRepository>(
       () => LoginRepositoryImpl(loginDataSource: sl()),
     )
@@ -51,12 +62,9 @@ Future<void> init() async {
     )
     //Dara source
     ..registerFactory<HomeDataSource>(() => HomeDataSourceImpl(db: sl()))
-    ..registerFactory<LoginDataSource>(
-      () => LoginDataSourceImpl(db: sl(), auth: sl()),
-    )
-    ..registerFactory<RegisterDataSource>(
-      () => RegisterDataSourceImpl(firestore: sl(), auth: sl()),
-    )
+    ..registerFactory<LoginDataSource>(() => LoginDataSourceImpl(db: sl(), auth: sl()),)
+    ..registerFactory<RegisterDataSource>(() => RegisterDataSourceImpl(firestore: sl(), auth: sl()),)
+    ..registerFactory<CreateTaskDataSource>(() => CreateTaskDataSourceImpl(firestore: sl(), auth: sl()),)
     ..registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance)
     ..registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 }

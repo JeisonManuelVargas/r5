@@ -65,8 +65,13 @@ class Home extends BasePage<HomeState, HomeCubit> {
               ),
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.03),
-                child: CustomButton(label: "Create Task", onTap: () {}),
+                margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.03,
+                ),
+                child: CustomButton(
+                  label: "Create Task",
+                  onTap: bloc.goToCreateTask,
+                ),
               ),
             ],
           ),

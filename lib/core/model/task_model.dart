@@ -1,27 +1,34 @@
 class TaskModel {
   String nameTask;
-  dynamic dateCreated;
+  String creatorName;
   String description;
-  String creatorId;
+  DateTime dateCreated;
 
   TaskModel({
     required this.nameTask,
+    required this.creatorName,
     required this.dateCreated,
     required this.description,
-    required this.creatorId,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
     nameTask: json["name_task"],
     dateCreated: json["date_created"],
     description: json["description"],
-    creatorId: json["creator_id"],
+    creatorName: json["creator_id"],
+  );
+
+  factory TaskModel.init() => TaskModel(
+    nameTask: "",
+    creatorName: "",
+    description: "",
+    dateCreated: DateTime.now(),
   );
 
   Map<String, dynamic> toJson() => {
     "name_task": nameTask,
     "date_created": dateCreated,
     "description": description,
-    "creator_id": creatorId,
+    "creator_id": creatorName,
   };
 }

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:r5/core/errors/failure.dart';
-import 'package:r5/core/model/user_model.dart';
+import 'package:r5/core/model/task_model.dart';
 
 abstract class CreateTaskRepository {
-  Future<Either<Failure, UserModel?>> registerWithEmailAndPassword({
-    required UserModel userModel,
+  Future<Either<Failure, bool>> createTask({
+    required TaskModel taskModel
   });
 }
